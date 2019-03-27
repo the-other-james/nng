@@ -24,3 +24,4 @@ endforeach ()
 set(NNG_LIBRARY nng::nng)
 
 check_required_components(@PROJECT_NAME@)
+

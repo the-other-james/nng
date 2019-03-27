@@ -202,7 +202,22 @@ foreach(_PKG IN ITEMS ${NNG_PKGS})
 endforeach ()
 
 # Library
-add_library (${PROJECT_NAME} ${NNG_SRCS})
+#add_library (${PROJECT_NAME} ${NNG_SRCS})
+#add_cfe_app(nng_lib ${NNG_SRCS})
+
+
+# Create the app module
+add_library(nng_lib "SHARED" ${NNG_SRCS})# ${ARGN})
+
+# Override the default behavior of attaching a "lib" prefix
+set_target_properties(nng_lib PROPERTIES PREFIX "")
+
+# Create the install targets for this shared/modular app
+message("What the target?")
+foreach(TGT ${APP_INSTALL_LIST})
+  message("What the target?" ${TGT})
+  install(TARGETS ${APP_NAME} DESTINATION ${TGT}/${INSTALL_SUBDIR})
+endforeach()
 
 # When building shared libraries we prefer to suppress default symbol
 # visibility, so that only the symbols that should be exposed in the
@@ -238,25 +253,25 @@ $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
 
 target_include_directories (${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include)
 
-install (TARGETS ${PROJECT_NAME}
-    EXPORT ${PROJECT_NAME}-target
-    FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Library
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Library
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Library
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT Tools
-)
+#install (TARGETS ${PROJECT_NAME}
+#    EXPORT ${PROJECT_NAME}-target
+#    FRAMEWORK DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Library
+#    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Library
+#    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT Library
+#    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT Tools
+#)
 
-install (EXPORT ${PROJECT_NAME}-target
-    FILE ${PROJECT_NAME}-targets.cmake
-    NAMESPACE nng::
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
-    COMPONENT Library
-)
+#install (EXPORT ${PROJECT_NAME}-target
+#    FILE ${PROJECT_NAME}-targets.cmake
+#    NAMESPACE nng::
+#    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+#    COMPONENT Library
+#)
 
 # Install the header files.
-install(DIRECTORY ../include/nng
-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-    COMPONENT Headers)
+#install(DIRECTORY ../include/nng
+#    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+#    COMPONENT Headers)
 
 # Promote settings to parent
 set(NNG_LIBS ${NNG_LIBS} PARENT_SCOPE)
@@ -272,7 +287,7 @@ set(NNG_SUPP_WEBSOCKET ${NNG_SUPP_WEBSOCKET} PARENT_SCOPE)
 
 # Configure files
 
-set(INCLUDE_INSTALL_DIRS "${CMAKE_INSTALL_INCLUDEDIR}/nng")
+#set(INCLUDE_INSTALL_DIRS "${CMAKE_INSTALL_INCLUDEDIR}/nng")
 
 include(CMakePackageConfigHelpers)
 set(version_config "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake")
@@ -282,10 +297,12 @@ write_basic_package_version_file("${version_config}"
     VERSION ${NNG_PACKAGE_VERSION}
     COMPATIBILITY SameMajorVersion
 )
-configure_package_config_file(${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}-config.cmake.in "${project_config}"
-    INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
-    PATH_VARS INCLUDE_INSTALL_DIRS)
+#configure_package_config_file(${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}-config.cmake.in "${project_config}"
+#    INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
+#    PATH_VARS INCLUDE_INSTALL_DIRS)
 
-install(FILES "${project_config}" "${version_config}"
-    DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
-    COMPONENT Library)
+#add_cfe_app(nng_lib ${NNG_SRCS})
+
+#install(FILES "${project_config}" "${version_config}"
+#    DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
+#    COMPONENT Library)

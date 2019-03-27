@@ -23,6 +23,33 @@
 #include <stdio.h>
 #include <string.h>
 
+/*************************************************************************
+** Private Function Prototypes
+*************************************************************************/
+
+#define NNG_LIB_MAJOR_VERSION 1
+#define NNG_LIB_MINOR_VERSION 0
+#define NNG_LIB_REVISION      0
+#define NNG_LIB_MISSION_REV   0
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*                                                                 */
+/* CFS Library Initialization Routine                              */
+/* cFE requires that a library have an initialization routine      */
+/*                                                                 */
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+int NNG_LibInit(void)
+{
+  //CFE_ES_WriteToSysLog("NNG Lib Initialized.  Version %d.%d.%d.%d\n",
+  printf("NNG Lib Initialized.  Version %d.%d.%d.%d\n",
+                NNG_LIB_MAJOR_VERSION,
+                NNG_LIB_MINOR_VERSION,
+                NNG_LIB_REVISION,
+                NNG_LIB_MISSION_REV);
+  return 0;
+}
+
+
 void
 nng_fini(void)
 {

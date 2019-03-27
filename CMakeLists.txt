@@ -27,7 +27,7 @@
 
 cmake_minimum_required (VERSION 3.1)
 
-project (nng C)
+project (nng_lib C)
 include (CheckFunctionExists)
 include (CheckSymbolExists)
 include (CheckStructHasMember)
@@ -99,7 +99,8 @@ string(REGEX REPLACE "[0-9]+.[0-9]+.([0-9]+).*" "\\1" NNG_VERSION_PATCH "${NNG_P
 
 # User-defined options.
 
-option(BUILD_SHARED_LIBS "Build shared library" ${BUILD_SHARED_LIBS})
+#option(BUILD_SHARED_LIBS "Build shared library" ${BUILD_SHARED_LIBS})
+set(BUILD_SHARED_LIBS ON)
 
 if (CMAKE_CROSSCOMPILING)
     set (NNG_NATIVE_BUILD OFF)

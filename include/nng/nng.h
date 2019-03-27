@@ -177,6 +177,8 @@ typedef struct nng_iov {
 #define NNG_DURATION_DEFAULT (-2)
 #define NNG_DURATION_ZERO (0)
 
+NNG_DECL int NNG_LibInit(void);
+
 // nng_fini is used to terminate the library, freeing certain global resources.
 // This should only be called during atexit() or just before dlclose().
 // THIS FUNCTION MUST NOT BE CALLED CONCURRENTLY WITH ANY OTHER FUNCTION
