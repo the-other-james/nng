@@ -24,6 +24,8 @@
 #   IN THE SOFTWARE.
 #
 
+set (APP_NAME nng_lib)
+
 set (NNG_SRCS
     nng.c
     ${PROJECT_SOURCE_DIR}/include/nng/nng.h
