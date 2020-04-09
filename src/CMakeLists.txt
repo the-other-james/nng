@@ -215,9 +215,7 @@ add_library(nng_lib "SHARED" ${NNG_SRCS})# ${ARGN})
 set_target_properties(nng_lib PROPERTIES PREFIX "")
 
 # Create the install targets for this shared/modular app
-message("What the target?")
 foreach(TGT ${APP_INSTALL_LIST})
-  message("What the target?" ${TGT})
   install(TARGETS ${APP_NAME} DESTINATION ${TGT}/${INSTALL_SUBDIR})
 endforeach()
 
